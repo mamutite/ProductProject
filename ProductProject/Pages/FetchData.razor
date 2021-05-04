@@ -2,7 +2,6 @@
 
 @using ProductProject.Data
 
-
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 @*@inherits OwningComponentBase<ProductService>*@
@@ -34,21 +33,42 @@
                 <tbody>
                     @foreach (var product in products)
                     {
-                        <tr>
-                            <td>@product.ProductId</td>
-                            <td>@product.ProductName</td>
-                            <td>@product.UnitInStock</td>
-                            <td>@product.UnitPrice</td>
-                            <td>@product.DeliveryOn.ToShortDateString()</td>
-                            <td>
-                                <button class="btn btn-primary"
-                                        @onclick="(() => EditProduct(product))">
-                                    Edit
-                                </button>
+                        @if (product.UnitInStock > 0)
+                        {
+                            <tr>
+                                <td>@product.ProductId</td>
+                                <td>@product.ProductName</td>
+                                <td>@product.UnitInStock</td>
+                                <td>@product.UnitPrice</td>
+                                <td>@product.DeliveryOn.ToShortDateString()</td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                            @onclick="(() => EditProduct(product))">
+                                        Edit
+                                    </button>
 
-                            </td>
+                                </td>
 
-                        </tr>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="background-color: red">
+                                <td>@product.ProductId</td>
+                                <td>@product.ProductName</td>
+                                <td>@product.UnitInStock</td>
+                                <td>@product.UnitPrice</td>
+                                <td>@product.DeliveryOn.ToShortDateString()</td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                            @onclick="(() => EditProduct(product))">
+                                        Edit
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
